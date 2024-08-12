@@ -1,118 +1,128 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+// App.tsx
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import HomeScreen from './src/screens/HomeScreen';
+import ScreenDesinfection from './src/screens/ScreenDesinfection';
+import ScreenCaptation from './src/screens/ScreenCaptation';
+import ScreenConduction from './src/screens/ScreenConduction';
+import ScreenCrp from './src/screens/ScreenCrp';
+import ScreenReservorio from './src/screens/ScreenReservorio';
+import ScreenDosificador from './src/screens/ScreenDosificador';
+import ScreenTuboVisor from './src/screens/ScreenTuboVisor';
+import ScreenAforo from './src/screens/ScreenAforo';
 
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  DataProvider,
+  DataProviderDosificadoraCalcio,
+  DataProviderHipocloro,
+} from './src/context/contextProvider';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+type RootStackParamList = {
+  Home: undefined;
+  ScreenDesinfection: undefined;
+  ScreenCaptation: undefined;
+  ScreenConduction: undefined;
+  ScreenCrp: undefined;
+  ScreenReservorio: undefined;
+  ScreenTuboVisor: undefined;
+  ScreenDosificador: undefined;
+  ScreenAforo: undefined;
+};
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createStackNavigator<RootStackParamList>();
+
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <DataProvider>
+      <DataProviderHipocloro>
+        <DataProviderDosificadoraCalcio>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="ScreenDesinfection"
+                component={ScreenDesinfection}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenCaptation"
+                component={ScreenCaptation}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenConduction"
+                component={ScreenConduction}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenCrp"
+                component={ScreenCrp}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenReservorio"
+                component={ScreenReservorio}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenDosificador"
+                component={ScreenDosificador}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+              <Stack.Screen
+                name="ScreenTuboVisor"
+                component={ScreenTuboVisor}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+                        <Stack.Screen
+                name="ScreenAforo"
+                component={ScreenAforo}
+                options={{
+                  title: '',
+                  headerStyle: {backgroundColor: '#ffff'},
+                  headerTintColor: '#0c6ccc',
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </DataProviderDosificadoraCalcio>
+      </DataProviderHipocloro>
+    </DataProvider>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
